@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: device-provisioning
+  labels:
+    app: device-provisioning
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: device-provisioning
+  template:
+    metadata:
+      labels:
+        app: device-provisioning
+    spec:
+      containers:
+        - name: device-provisioning
+          image: ghcr.io/OWNER/device-provisioning:latest
+          ports:
+            - containerPort: 8091
+          env:
+            - name: PORT
+              value: "8091"
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
